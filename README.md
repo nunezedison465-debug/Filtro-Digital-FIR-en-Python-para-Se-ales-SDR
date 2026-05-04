@@ -30,12 +30,12 @@ Corte en 100 kHz. Se observa cómo se mantiene el tono de 50 kHz y se eliminan l
 2. Filtro Paso Alto (HPF)
 Corte en 200 kHz. Se eliminan los tonos bajos, permitiendo el paso del tono de 300 kHz.
 # 2. Filtro Paso Alto (HPF)
-
+![Resultado Filtro Paso Alto](img/Figura_7.png)
 4. Filtro Paso Banda (BPF)
 Rango 150-250 kHz. Se logra aislar exclusivamente el tono central de 200 kHz.
 # 4. Filtro Paso Banda (BPF)
-
+![Resultado Filtro Paso Banda](img/Figura_8.png)
 ### Autores
 Edison Guillermo Nuñez Pastuña - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
-Juan JosévFlores Segarra - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
+Juan José Flores Segarra - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
 Carlos Andres Guandinango Chaviznan - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
