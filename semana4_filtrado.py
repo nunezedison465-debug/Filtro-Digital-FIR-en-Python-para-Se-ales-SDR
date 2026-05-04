@@ -17,12 +17,11 @@ for i in range(10): # Limpiamos basura inicial
     rx_data = sdr.rx()
 rx_data = sdr.rx()
 
-# 3. Diseño del Filtro Paso Bajo (100 kHz)
+# 3. Diseño del Filtro Paso Banda (150 - 250 kHz)
 fs = sdr.sample_rate
-f_corte = 100e3
-taps = 64
-coeficientes = signal.firwin(taps, f_corte, fs=fs, window='hamming')
-
+f_banda = [150e3, 250e3]
+taps = 65
+coeficientes = signal.firwin(taps, f_banda, fs=fs, pass_zero=False, window='hamming')
 # 4. Filtrar la señal capturada
 senal_filtrada = signal.lfilter(coeficientes, 1.0, rx_data)
 
@@ -50,7 +49,7 @@ plt.grid(True)
 
 plt.subplot(1, 2, 2)
 plt.plot(f_filt / 1000, mag_filt, 'r', linewidth=2)
-plt.title('DESPUÉS: Filtrada (Paso Bajo 100 kHz)')
+plt.title('DESPUÉS: Filtrada (Paso Banda 150-250 kHz)')
 plt.xlabel('Frecuencia (kHz)')
 plt.xlim([0, 400])
 plt.grid(True)
