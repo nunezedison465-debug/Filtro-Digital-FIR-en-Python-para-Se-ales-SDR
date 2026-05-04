@@ -1,2 +1,44 @@
 # Filtro-Digital-FIR-en-Python-para-Se-ales-SDR
 El procesamiento digital de señales es fundamental en SDR. Este proyecto diseña e implementa filtros digitales FIR (Finite Impulse Response) en Python para procesar señales I/Q capturadas del ADALM-Pluto, incluyendo filtros paso bajo, paso alto, y paso banda.
+
+
+														Implementación de Filtros Digitales FIR en Tiempo Real con ADALM-Pluto SDR
+-Descripción del Proyecto
+Este proyecto, desarrollado para la asignatura de Electrónica II en la Universidad Nacional de Chimborazo (UNACH), consiste en el diseño, simulación e implementación física de filtros digitales FIR (Finite Impulse Response). A diferencia de una simulación puramente matemática, este sistema utiliza hardware Software Defined Radio (SDR) para transmitir y recibir señales reales a través del aire, aplicando filtrado digital en tiempo real mediante Python.
+
+																								-Requisitos de Hardware y Software
+Hardware:
+SDR ADALM-Pluto (Analog Devices).
+Laptop MSI Cyborg 14 A13V.
+Software y Librerías:
+Python 3.10+.
+pyadi-iio (Librería específica para hardware de Analog Devices).
+libiio (Driver de sistema para comunicación con SDR).
+numpy, scipy y matplotlib.
+
+																												-Estructura del Desarrollo
+El proyecto se dividió en cuatro etapas progresivas:
+Semana 1 y 2: Diseño teórico y simulación de filtros Paso Bajo, Paso Alto y Paso Banda usando el método de enventanado (Hamming).
+Semana 3: Configuración del ADALM-Pluto para la transmisión cíclica de una señal multi-tono (50 kHz, 200 kHz y 300 kHz) sobre una portadora de 900 MHz.
+Semana 4: Captura de la señal física mediante la antena de recepción y aplicación de los filtros diseñados para aislar o eliminar componentes de frecuencia específicos.
+
+																										-Resultados Experimentales
+A continuación se muestran las capturas del procesamiento en tiempo real:
+
+1. Filtro Paso Bajo (LPF)
+Corte en 100 kHz. Se observa cómo se mantiene el tono de 50 kHz y se eliminan las frecuencias superiores.
+### 1. Filtro Paso Bajo (LPF)
+![Resultado Filtro Paso Bajo](img/Figura_6.png)
+
+2. Filtro Paso Alto (HPF)
+Corte en 200 kHz. Se eliminan los tonos bajos, permitiendo el paso del tono de 300 kHz.
+(Inserta aquí tu imagen image_39ddc0.jpg)
+
+3. Filtro Paso Banda (BPF)
+Rango 150-250 kHz. Se logra aislar exclusivamente el tono central de 200 kHz.
+(Inserta aquí tu imagen image_39d567.png)
+
+																													Autores
+Edison Guillermo Nuñez Pastuña - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
+Juan JosévFlores Segarra - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
+Carlos Andres Guandinango Chaviznan - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
