@@ -1,43 +1,59 @@
 import numpy as np
+import adi
 import scipy.signal as signal
 import matplotlib.pyplot as plt
 
-# 1. Recreamos la señal original (3 tonos)
-fs = 1e6
-t = np.arange(0, 0.001, 1/fs)
-senal = np.cos(2*np.pi*50e3*t) + np.cos(2*np.pi*200e3*t) + np.cos(2*np.pi*300e3*t)
+# 1. Configurar el SDR para Recepción (Escuchar)
+sdr = adi.Pluto('ip:192.168.2.1')
+sdr.sample_rate = int(1e6)
+sdr.rx_lo = int(900e6) # Sintonizamos la misma frecuencia que la transmisión
+sdr.rx_rf_bandwidth = int(1e6)
+sdr.rx_buffer_size = 10000 
+sdr.rx_hardwaregain_chan0 = "slow_attack"
 
-# 2. Recreamos el Filtro Paso Bajo (Corte: 100 kHz)
-taps = 64 
+# 2. ¡Capturar la señal real del aire!
+print("Capturando señal del aire...")
+for i in range(10): # Limpiamos basura inicial
+    rx_data = sdr.rx()
+rx_data = sdr.rx()
+
+# 3. Diseño del Filtro Paso Bajo (100 kHz)
+fs = sdr.sample_rate
 f_corte = 100e3
-coeffs_lpf = signal.firwin(taps, f_corte, fs=fs, window='hamming')
+taps = 64
+coeficientes = signal.firwin(taps, f_corte, fs=fs, window='hamming')
 
-# 3. ¡EL FILTRADO! Aplicamos el filtro a la señal
-senal_filtrada = signal.lfilter(coeffs_lpf, 1.0, senal)
+# 4. Filtrar la señal capturada
+senal_filtrada = signal.lfilter(coeficientes, 1.0, rx_data)
 
-# 4. Calculamos los espectros (FFT) para comparar
-f = np.fft.fftfreq(len(t), 1/fs)
-espectro_original = np.abs(np.fft.fft(senal))
-espectro_filtrado = np.abs(np.fft.fft(senal_filtrada))
+# 5. Calcular la FFT
+def calcular_fft(senal, fs):
+    N = len(senal)
+    espectro = np.fft.fft(senal)
+    frecuencias = np.fft.fftfreq(N, 1/fs)
+    magnitud = np.abs(espectro) / N
+    mitad = N // 2
+    return frecuencias[:mitad], magnitud[:mitad]
 
-# 5. Configuramos la gráfica comparativa
+f_orig, mag_orig = calcular_fft(rx_data, fs)
+f_filt, mag_filt = calcular_fft(senal_filtrada, fs)
+
+# 6. Gráficas del Antes y Después
 plt.figure(figsize=(12, 5))
 
-# Gráfica Izquierda: Antes del filtro
 plt.subplot(1, 2, 1)
-plt.plot(f[:len(f)//2]/1000, espectro_original[:len(espectro_original)//2], 'b')
-plt.title('ANTES: Señal Original (3 Tonos)')
+plt.plot(f_orig / 1000, mag_orig, 'b')
+plt.title('ANTES: Señal Recibida por la Antena')
 plt.xlabel('Frecuencia (kHz)')
-plt.grid(True)
 plt.xlim([0, 400])
+plt.grid(True)
 
-# Gráfica Derecha: Después del filtro
 plt.subplot(1, 2, 2)
-plt.plot(f[:len(f)//2]/1000, espectro_filtrado[:len(espectro_filtrado)//2], 'r', linewidth=2)
+plt.plot(f_filt / 1000, mag_filt, 'r', linewidth=2)
 plt.title('DESPUÉS: Filtrada (Paso Bajo 100 kHz)')
 plt.xlabel('Frecuencia (kHz)')
-plt.grid(True)
 plt.xlim([0, 400])
+plt.grid(True)
 
 plt.tight_layout()
 plt.show()
