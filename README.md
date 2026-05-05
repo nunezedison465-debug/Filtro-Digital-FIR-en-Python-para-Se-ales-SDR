@@ -8,7 +8,6 @@ Este proyecto, desarrollado para la asignatura de Electrónica II en la Universi
 ### Requisitos de Hardware y Software
 Hardware:
 SDR ADALM-Pluto (Analog Devices).
-Laptop MSI Cyborg 14 A13V.
 Software y Librerías:
 Python 3.10+.
 pyadi-iio (Librería específica para hardware de Analog Devices).
@@ -19,7 +18,8 @@ numpy, scipy y matplotlib.
 El proyecto se dividió en cuatro etapas progresivas:
 Semana 1 y 2: Diseño teórico y simulación de filtros Paso Bajo, Paso Alto y Paso Banda usando el método de enventanado (Hamming).
 Semana 3: Configuración del ADALM-Pluto para la transmisión cíclica de una señal multi-tono (50 kHz, 200 kHz y 300 kHz) sobre una portadora de 900 MHz.
-Semana 4: Captura de la señal física mediante la antena de recepción y aplicación de los filtros diseñados para aislar o eliminar componentes de frecuencia específicos.																			-Resultados Experimentales
+Semana 4: Captura de la señal física mediante la antena de recepción y aplicación de los filtros diseñados para aislar o eliminar componentes de frecuencia específicos.																			
+-Resultados Experimentales
 A continuación se muestran las capturas del procesamiento en tiempo real:
 
 1. Filtro Paso Bajo (LPF)
