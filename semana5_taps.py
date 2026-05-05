@@ -3,13 +3,13 @@ import adi
 import scipy.signal as signal
 import matplotlib.pyplot as plt
 
-# 1. Configurar SDR Pluto
+# 1. SDR Pluto
 sdr = adi.Pluto('ip:192.168.2.1')
 sdr.sample_rate = int(1e6)
 sdr.rx_lo = int(900e6)
 sdr.rx_buffer_size = 10000
 
-# 2. Capturar señal multi-tono (Asegúrate que semana3_tx.py esté corriendo)
+# 2. Capturar señal multi-tono 
 print("Capturando señal para comparación...")
 for _ in range(10): sdr.rx() # Limpieza
 rx_data = sdr.rx()
@@ -22,7 +22,7 @@ colores = ['g', 'b', 'r'] # Verde, Azul, Rojo
 
 plt.figure(figsize=(10, 6))
 
-# Calculamos FFT de la señal original para referencia
+# Calculos FFT de la señal original para referencia
 N = len(rx_data)
 frecuencias = np.fft.fftfreq(N, 1/fs)[:N//2]
 mag_orig = np.abs(np.fft.fft(rx_data))[:N//2] / N
@@ -38,7 +38,7 @@ for tap, color in zip(ordenes, colores):
     # Aplicar filtro
     filtrada = signal.lfilter(coefs, 1.0, rx_data)
     
-    # Calcular Espectro en dB (para verificar los >40dB de atenuación de la rúbrica)
+    # Calcular Espectro en dB
     mag_db = 20 * np.log10(np.abs(np.fft.fft(filtrada))[:N//2] / N + 1e-9)
     
     plt.plot(frecuencias/1000, mag_db, color=color, label=f'Orden: {tap} taps')
@@ -50,7 +50,7 @@ plt.ylabel('Magnitud (dB)')
 plt.legend()
 plt.grid(True, which='both', linestyle='--', alpha=0.5)
 plt.xlim([0, 400])
-plt.ylim([-100, 0]) # Ajustado para ver la atenuación en dB
+plt.ylim([-100, 0]) # Atenuación en dB
 plt.tight_layout()
 
 print("Gráfica generada. Revisa la atenuación en la banda de parada.")
