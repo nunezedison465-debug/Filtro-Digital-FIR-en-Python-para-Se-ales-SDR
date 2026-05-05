@@ -17,6 +17,7 @@ frecuencias = (fs * 0.5 / np.pi) * w
 
 # 4. Configuración de la gráfica
 plt.figure(figsize=(10, 6))
+
 # Convertimos las frecuencias a kHz 
 plt.plot(frecuencias / 1000, 20 * np.log10(np.abs(h)), 'b', linewidth=2) 
 plt.title('Semana 1: Respuesta en Frecuencia - Filtro Paso Bajo FIR')

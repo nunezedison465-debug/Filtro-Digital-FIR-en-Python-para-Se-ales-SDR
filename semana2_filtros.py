@@ -2,9 +2,9 @@ import numpy as np
 import scipy.signal as signal
 import matplotlib.pyplot as plt
 
-# Parámetros generales compartidos
+# Parámetros generales
 fs = 1e6            # Frecuencia de muestreo (1 MHz)
-taps = 65           # OJO: Cambiamos a 65 (número impar) para evitar el error de Nyquist
+taps = 65           # Taps 64 (65)
 ventana = 'hamming' # Tipo de ventana
 
 # 1. Filtro Paso Alto (Corte: 200 kHz)
@@ -15,12 +15,12 @@ coeffs_hp = signal.firwin(taps, f_corte_hp, fs=fs, pass_zero=False, window=venta
 f_banda = [150e3, 250e3]
 coeffs_bp = signal.firwin(taps, f_banda, fs=fs, pass_zero=False, window=ventana)
 
-# --- Cálculos de respuesta en frecuencia ---
+# Cálculos de respuesta en frecuencia 
 w_hp, h_hp = signal.freqz(coeffs_hp, worN=8000)
 w_bp, h_bp = signal.freqz(coeffs_bp, worN=8000)
 frecuencias = (fs * 0.5 / np.pi) * w_hp
 
-# --- Configuración de las Gráficas ---
+# Configuración de las Gráficas
 plt.figure(figsize=(12, 5))
 
 # Gráfica 1: Paso Alto

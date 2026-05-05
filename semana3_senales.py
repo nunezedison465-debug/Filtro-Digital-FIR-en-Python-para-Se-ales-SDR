@@ -17,7 +17,7 @@ senal = tono1 + tono2 + tono3
 f = np.fft.fftfreq(len(t), 1/fs)
 espectro = np.abs(np.fft.fft(senal))
 
-# Configuramos la gráfica
+# Gráfica
 plt.figure(figsize=(10, 5))
 plt.plot(f[:len(f)//2]/1000, espectro[:len(espectro)//2], 'b', linewidth=1.5)
 plt.title('Semana 3: Espectro de la Señal Multi-tono')
