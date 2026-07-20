@@ -39,3 +39,4 @@ Rango 150-250 kHz. Se logra aislar exclusivamente el tono central de 200 kHz.
 Edison Guillermo Nuñez Pastuña - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
 Juan José Flores Segarra - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
 Carlos Andres Guandinango Chaviznan - Estudiante de Ingeniería en Telecomunicaciones (UNACH).
+Brayan Mauricio Hernandez Carguacundo- Estudiante de Ingeniería en Telecomunicaciones (UNACH).
